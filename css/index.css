@@ -1,0 +1,1102 @@
+/* ==========================================================================
+   TEXT TO HANDWRITING — "Ink & Paper" design system
+   ========================================================================== */
+
+html,
+body {
+  margin: 0px;
+}
+
+body {
+  /* -- Paper / surface -- */
+  --paper: #faf5e9;
+  --paper-raised: #fffdf8;
+  --paper-deep: #f1e8d3;
+  --paper-line: #ddccaa;
+
+  /* -- Ink / accent -- */
+  --ink: #1c2b64;
+  --ink-soft: #51619c;
+  --gold: #ad8a4e;
+  --gold-soft: #e7d7b1;
+
+  /* -- Text -- */
+  --charcoal: #2a2419;
+  --charcoal-soft: #746b58;
+
+  /* -- Semantic -- */
+  --font-color-primary: var(--charcoal);
+  --background-primary: var(--paper);
+  --elevation-background: var(--paper-deep);
+  --link-color: var(--ink);
+  --label-color: var(--charcoal-soft);
+  --field-borders: var(--paper-line);
+  --primary-button-bg: var(--ink);
+  --primary-button-color: #fff8ea;
+  --font-color-delete: #a8402f;
+  --delete-button-borders: #a8402f;
+
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --font-family-display: 'Fraunces', 'Georgia', serif;
+  --handwriting-font: 'Homemade Apple', cursive;
+  --primary-color: var(--ink);
+  --ink-color: #000f55;
+
+  --shadow-ink: 20, 16, 8;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 26px;
+
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body.dark {
+  --paper: #14110c;
+  --paper-raised: #1e1a13;
+  --paper-deep: #211c14;
+  --paper-line: #3c3421;
+
+  --ink: #9fb3ff;
+  --ink-soft: #7686cc;
+  --gold: #dcb877;
+  --gold-soft: #493c25;
+
+  --charcoal: #ece4d3;
+  --charcoal-soft: #ab9e83;
+
+  --font-color-primary: var(--charcoal);
+  --background-primary: var(--paper);
+  --elevation-background: var(--paper-deep);
+  --link-color: var(--ink);
+  --label-color: var(--charcoal-soft);
+  --field-borders: var(--paper-line);
+  --primary-button-bg: var(--gold);
+  --primary-button-color: #201a0d;
+  --font-color-delete: #e8897b;
+  --delete-button-borders: #e8897b;
+
+  --shadow-ink: 0, 0, 0;
+}
+
+@font-face {
+  font-family: 'Hindi_Font';
+  src: url(../fonts/Hindi_Type.ttf);
+}
+
+/* ==========================================================================
+   Reset & base
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--gold-soft);
+  color: var(--charcoal);
+}
+
+body {
+  background-color: var(--background-primary);
+  color: var(--font-color-primary);
+  font-size: 1rem;
+  font-family: var(--font-family-primary);
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  background-image: radial-gradient(
+      circle at 15% 8%,
+      rgba(var(--shadow-ink), 0.05),
+      transparent 40%
+    ),
+    radial-gradient(circle at 85% 0%, rgba(var(--shadow-ink), 0.04), transparent 35%);
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  padding: 20px 0px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  color: var(--charcoal);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  color: var(--charcoal-soft);
+}
+
+button {
+  border: none;
+  background-color: var(--elevation-background);
+  color: var(--font-color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 10px 20px;
+  font-family: var(--font-family-primary);
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0px);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+label {
+  color: var(--label-color);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+label.block {
+  display: block;
+  padding-bottom: 6px;
+}
+
+select {
+  background: var(--paper-raised) url('../images/chevron-light.svg') no-repeat;
+  background-position: calc(100% - 14px) center;
+  background-size: 10px;
+  border: none;
+  color: var(--charcoal);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  display: block;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+option {
+  color: #333;
+}
+
+body.dark select {
+  background-image: url('../images/chevron-dark.svg');
+}
+
+input {
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--field-borders);
+  color: var(--font-color-primary);
+  background-color: var(--paper-raised);
+  display: block;
+  font-family: var(--font-family-primary);
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield !important;
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Small utilities (still used by markup / generated output)
+   ========================================================================== */
+.shadow {
+  box-shadow: 0 18px 40px -12px rgba(var(--shadow-ink), 0.28);
+}
+
+.display-flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 10px 0;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  display: inline-block;
+}
+
+/* ==========================================================================
+   Header / nav
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  background-color: rgba(var(--shadow-ink), 0.03);
+  border-bottom: 1px solid var(--field-borders);
+}
+
+body.dark .site-header {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--charcoal);
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.brand svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.site-nav a:not(.nav-cta) {
+  color: var(--charcoal-soft);
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.site-nav a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.2s ease;
+}
+
+.site-nav a:not(.nav-cta):hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--field-borders);
+  padding: 7px 14px;
+  border-radius: 100px;
+  color: var(--charcoal);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.nav-cta:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (max-width: 860px) {
+  .site-nav a:not(.nav-cta) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 90px 32px 40px;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-copy p.hero-sub {
+  font-size: 1.08rem;
+  max-width: 46ch;
+  margin-top: 18px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--ink);
+  position: relative;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #fff8ea;
+  box-shadow: 0 14px 30px -10px rgba(var(--shadow-ink), 0.4);
+}
+
+body.dark .btn-primary {
+  color: #14110c;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -10px rgba(var(--shadow-ink), 0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--field-borders);
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.hero-signature {
+  position: relative;
+}
+
+.hero-signature svg {
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+}
+
+.signature-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw-signature 3.2s ease-out 0.3s forwards;
+}
+
+.hero-signature .signature-rule {
+  stroke: var(--field-borders);
+  stroke-width: 1;
+  stroke-dasharray: none;
+  animation: none;
+}
+
+@keyframes draw-signature {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 56px;
+    text-align: left;
+  }
+  .hero-signature {
+    order: -1;
+    max-width: 340px;
+  }
+}
+
+/* ==========================================================================
+   Pane headings (shared across editor / output sections)
+   ========================================================================== */
+.pane-heading {
+  margin-bottom: 20px;
+}
+
+.pane-heading h2 {
+  margin: 4px 0 6px;
+}
+
+.pane-heading .hint {
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+.pane-heading.center {
+  text-align: center;
+}
+
+/* ==========================================================================
+   Workspace / editor section
+   ========================================================================== */
+.generate-image-section {
+  padding: 30px 0px 10px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.editor-pane {
+  position: relative;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+}
+
+.notebook {
+  position: relative;
+  padding: 26px 26px 26px 46px;
+  background: linear-gradient(
+    165deg,
+    var(--paper-raised),
+    var(--paper-deep)
+  );
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 60px -20px rgba(var(--shadow-ink), 0.35),
+    0 2px 0 rgba(255, 255, 255, 0.4) inset;
+  display: inline-flex;
+}
+
+body.dark .notebook {
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.notebook-spiral {
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 18px;
+  width: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.notebook-spiral span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--paper);
+  background: var(--field-borders);
+  box-shadow: 0 1px 2px rgba(var(--shadow-ink), 0.25);
+}
+
+.editor-toolbar {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.draw-button {
+  background: var(--paper-raised);
+  border: 1px solid var(--field-borders);
+  font-weight: 600;
+}
+
+.draw-button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ==========================================================================
+   Customization column
+   ========================================================================== */
+.customization-col {
+  position: sticky;
+  top: 90px;
+}
+
+.option-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--field-borders);
+  border-radius: var(--radius-md);
+  padding: 18px 20px 20px;
+  margin: 0 0 16px 0;
+  box-shadow: 0 10px 24px -16px rgba(var(--shadow-ink), 0.3);
+}
+
+.option-card legend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0 4px;
+}
+
+.upload-handwriting-container {
+  margin-top: 4px;
+}
+
+.experimental {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.category-grid {
+  display: grid;
+  grid-gap: 14px;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  margin-top: 4px;
+}
+
+@media (max-width: 1180px) {
+  .category-grid {
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.generate-cta {
+  text-align: center;
+  padding: 20px 0 6px;
+}
+
+.generate-image-button {
+  background-color: var(--primary-button-bg);
+  color: var(--primary-button-color);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 15px 38px;
+  border-radius: 100px;
+  box-shadow: 0 16px 30px -12px rgba(var(--shadow-ink), 0.45);
+}
+
+.generate-image-button:hover {
+  box-shadow: 0 20px 34px -12px rgba(var(--shadow-ink), 0.55);
+}
+
+@media (max-width: 980px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .customization-col {
+    position: static;
+  }
+}
+
+/* ==========================================================================
+   The paper page itself — kept geometrically identical to the original
+   so the html2canvas pagination math (js/generate-images.mjs) still works.
+   ========================================================================== */
+.page-a {
+  width: 400px;
+  height: calc(11.7 * 400px / 8.3); /* A4 Ratio */
+  background: #fff;
+  border: 1px solid var(--elevation-background);
+  font-size: 10pt;
+  position: relative;
+  top: 0px;
+  font-family: var(--handwriting-font);
+  color: var(--ink-color);
+  line-height: 1.5em;
+  overflow-y: auto;
+  scrollbar-color: transparent;
+  scrollbar-width: thin;
+}
+
+.paper-content {
+  margin: 10px;
+  width: 100%;
+}
+
+.left-margin-and-content {
+  min-height: calc(100% - 50px);
+}
+
+.page-a.lines .paper-content {
+  background-image: linear-gradient(#999 0.05em, transparent 0.1em);
+  background-color: unset !important;
+  background-size: 100% 1.5em;
+}
+
+.margined .paper-content {
+  padding: 5px;
+  margin: 0px;
+  padding-left: 55px;
+}
+
+.left-margin,
+.top-margin {
+  display: none;
+}
+
+.margined .top-margin {
+  height: 50px;
+  border-bottom: 2px solid pink;
+  width: 100%;
+  display: block;
+  overflow-y: auto;
+}
+
+.margined .left-margin {
+  width: 50px;
+  height: calc(100%);
+  display: inline-block;
+  border-right: 2px solid pink;
+  top: 0px;
+  padding-top: 50px;
+  overflow-x: hidden;
+  position: absolute;
+  left: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.overlay.shadows {
+  display: block;
+}
+
+/* ==========================================================================
+   Output
+   ========================================================================== */
+.output-section {
+  padding-top: 60px;
+}
+
+.output {
+  width: 100%;
+  padding: 34px 16px;
+  white-space: nowrap;
+  overflow-x: auto;
+  border: 1px dashed var(--field-borders);
+  border-radius: var(--radius-lg);
+  background: var(--paper-deep);
+  text-align: center;
+  color: var(--charcoal-soft);
+  font-size: 0.95rem;
+}
+
+.output .output-image-container {
+  display: inline-block;
+  position: relative;
+  margin: 0 14px;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.output .close-button {
+  position: absolute;
+  right: -8px;
+  top: -12px;
+  border-radius: 100%;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color: var(--charcoal);
+  color: var(--paper);
+  font-size: 15pt;
+  font-weight: bold;
+  box-shadow: 0 6px 14px -4px rgba(var(--shadow-ink), 0.4);
+}
+
+.download-image-button {
+  display: inline-block;
+  text-align: center;
+  margin-top: 12px;
+  background-color: var(--ink);
+  color: #fff8ea;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 18px;
+  border-radius: 100px;
+}
+
+body.dark .download-image-button {
+  color: #14110c;
+  background-color: var(--gold);
+}
+
+#download-as-pdf-button,
+#delete-all-button {
+  display: none;
+}
+
+#download-as-pdf-button.show,
+#delete-all-button.show {
+  display: inline-block;
+}
+
+.output img {
+  width: 300px;
+  border-radius: 6px;
+  box-shadow: 0 18px 40px -14px rgba(var(--shadow-ink), 0.35);
+}
+
+.output-actions {
+  text-align: center;
+  padding: 26px;
+}
+
+.imp-button {
+  color: var(--charcoal);
+  border: 1px solid var(--charcoal);
+  background: transparent;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+body.dark .imp-button {
+  color: var(--charcoal);
+  border-color: var(--charcoal-soft);
+}
+
+.delete-button {
+  color: var(--font-color-delete);
+  border: 1px solid var(--delete-button-borders);
+  background-color: transparent;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Info sections (how-to, sponsors, contributors, faq)
+   ========================================================================== */
+.info-section {
+  padding: 64px 0;
+  border-top: 1px solid var(--field-borders);
+}
+
+.info-section .pane-heading {
+  max-width: 640px;
+}
+
+.step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.step-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--paper-raised);
+  border: 1px solid var(--field-borders);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+}
+
+.step-list .step-index {
+  font-family: var(--font-family-display);
+  font-size: 1.1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.sponsor-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.sponsor-cards a img {
+  border-radius: var(--radius-sm);
+  transition: transform 0.2s ease;
+}
+
+.sponsor-cards a:hover img {
+  transform: translateY(-3px);
+}
+
+.project-contributors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* FAQ accordion */
+.faq-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.faq-list details {
+  background: var(--paper-raised);
+  border: 1px solid var(--field-borders);
+  border-radius: var(--radius-md);
+  padding: 4px 20px;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 600;
+  color: var(--charcoal);
+  font-family: var(--font-family-display);
+  font-size: 1.02rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary::after {
+  content: '+';
+  font-size: 1.4rem;
+  color: var(--gold);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.faq-list details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-list p {
+  padding-bottom: 18px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+footer {
+  padding: 50px 32px 60px;
+  max-width: 1180px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--charcoal-soft);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--field-borders);
+}
+
+footer a {
+  font-weight: 600;
+}
+
+.footer-signoff {
+  margin-top: 14px;
+  font-family: var(--font-family-display);
+  font-style: italic;
+  color: var(--charcoal-soft);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 768px) {
+  main {
+    padding: 0 18px;
+  }
+  .header-inner {
+    padding: 12px 18px;
+  }
+  .hero {
+    padding: 46px 18px 30px;
+  }
+  .notebook {
+    padding: 20px 16px 20px 34px;
+  }
+  .page-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .page-container-super {
+    display: flex;
+    flex-direction: column;
+  }
+  .output img {
+    width: 220px;
+  }
+  .project-contributors {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .contributor-profile {
+    flex-shrink: 0;
+  }
+}
+
+fieldset {
+  padding: 0px;
+  border-radius: var(--radius-md);
+  border: none;
+  margin-top: 0px;
+}
+
+legend {
+  font-size: 0.88rem;
+  padding: 0px 6px;
+  color: var(--font-color-primary);
+}
+
+select,
+input {
+  width: 100%;
+  border: 1px solid var(--field-borders);
+  padding: 10px;
+  padding-right: 30px;
+  color: var(--font-color-primary);
+}
+
+input[type='file'] {
+  padding: 8px 10px;
+  font-size: 0.82rem;
+}
+
+input[type='file']::-webkit-file-upload-button {
+  display: none;
+}
+
+input[type='file']::before {
+  content: 'Choose File';
+  display: inline-block;
+  background-color: var(--paper-deep);
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 8px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.postfix-input {
+  position: relative;
+}
+
+.postfix-input label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.postfix-input::after {
+  content: attr(data-postfix);
+  position: absolute;
+  right: 25px;
+  bottom: 12px;
+  font-size: 11px;
+  color: var(--charcoal-soft);
+}
+
+.fade-in-dark,
+.fade-in-light {
+  transition: 0.3s ease;
+}
+
+/*To generate margin between download as pdf and delete button in small screens*/
+@media (max-width: 430px) {
+  .delete-button {
+    margin-top: 10px;
+  }
+}

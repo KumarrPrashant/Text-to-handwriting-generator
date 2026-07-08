@@ -1,0 +1,245 @@
+/* ==========================================================================
+   DARK MODE TOGGLE — pill switch with sliding sun/moon
+   ========================================================================== */
+.dark-mode-toggle {
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--field-borders);
+  background: var(--paper-raised);
+  border-radius: 100px;
+  width: 58px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dark-mode-toggle::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--gold), var(--ink));
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+body.dark .dark-mode-toggle::before {
+  transform: translateX(26px);
+}
+
+.dark-mode-toggle .sun,
+.dark-mode-toggle .moon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+.dark-mode-toggle .sun {
+  left: 6px;
+}
+
+.dark-mode-toggle .moon {
+  right: 6px;
+}
+
+.dark-mode-toggle .sun img,
+.dark-mode-toggle .moon img {
+  width: 14px !important;
+  height: 14px !important;
+  filter: brightness(0) invert(1);
+}
+
+body:not(.dark) .dark-mode-toggle .sun img {
+  filter: none;
+}
+
+body.dark .dark-mode-toggle .moon img {
+  filter: none;
+}
+
+/* ==========================================================================
+   Toggle switches (paper margin / paper lines)
+   ========================================================================== */
+.switch-toggle {
+  position: relative;
+  display: block;
+  margin-top: 8px;
+  cursor: pointer;
+  width: 44px;
+  height: 24px;
+  border-radius: 25px;
+  background-color: var(--field-borders);
+  transition: background-color 0.2s ease;
+}
+
+.switch-toggle input {
+  position: relative;
+  top: 4px;
+  left: 4px;
+  z-index: -1;
+}
+
+.switch-toggle div {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--paper-raised);
+  box-shadow: 0 2px 4px rgba(var(--shadow-ink), 0.35);
+  transition: 0.2s ease;
+}
+
+.switch-toggle input:focus + div {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.switch-toggle input:checked + div {
+  left: 24px;
+}
+
+.switch-toggle:has(input:checked) {
+  background-color: var(--ink);
+}
+
+.switch-toggle.outer div {
+  width: 16px;
+  height: 16px;
+  top: 4px;
+  left: 4px;
+}
+
+label[for] .status {
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   POPUP / DRAW CANVAS
+   ========================================================================== */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(10, 8, 4, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 999999;
+  color: #ece4d3;
+  padding: 100px 60px;
+  display: none;
+}
+
+.popup-container.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-container .close-button {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  padding: 14px 22px;
+  cursor: pointer;
+  color: #ece4d3;
+  background-color: transparent;
+  border: none;
+  font-size: 34pt;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.popup-container .close-button:hover {
+  color: var(--gold);
+  transition: color 0.3s ease;
+}
+
+.draw-container .display-flex {
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.draw-container canvas {
+  border-radius: var(--radius-md);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+  max-width: 100%;
+}
+
+.draw-container .buttons-container {
+  min-width: 220px;
+  padding: 0 10px;
+}
+
+.draw-container .buttons-container button {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.padding-around {
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+@media (max-width: 768px) {
+  .display-flex.responsive-flex {
+    flex-direction: column;
+  }
+}
+
+#diagram-canvas {
+  cursor: crosshair;
+}
+
+/* ==========================================================================
+   Contributors
+   ========================================================================== */
+.contributor-profile {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  background-color: var(--paper-raised);
+  color: var(--font-color-primary);
+  padding: 10px;
+  width: 120px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--field-borders);
+}
+
+img.contributor-avatar {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.contributor-profile a {
+  text-decoration: none;
+  color: var(--font-color-primary);
+  font-weight: 600;
+  display: block;
+  font-size: 10pt;
+}
+
+.contributor-username {
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .popup-container {
+    padding: 70px 16px 20px;
+  }
+}
